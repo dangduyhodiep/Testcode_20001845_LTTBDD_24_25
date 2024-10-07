@@ -1,0 +1,54 @@
+import React, { useReducer } from 'react';
+import { View, Text, Button } from 'react-native';
+
+// Reducer for the Counter
+const initialState = { count: 0 };
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    case 'decrement':
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+// Counter Component
+const Counter = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <View>
+      <Text>Count: {state.count}</Text>
+      <Button title="Increment" onPress={() => dispatch({ type: 'increment' })} />
+      <Button title="Decrement" onPress={() => dispatch({ type: 'decrement' })} />
+    </View>
+  );
+};
+
+// MyComponent to calculate the sum of an array of numbers
+const MyComponent = ({ numbers }) => {
+  const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+
+  return (
+    <View>
+      <Text>Sum: {sum}</Text>
+    </View>
+  );
+};
+
+// Main App Component
+const App = () => {
+  const numbers = [1, 2, 3, 4, 5];
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Counter />
+      <MyComponent numbers={numbers} />
+    </View>
+  );
+};
+
+export default App;
